@@ -1,12 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import Hello from "./containers/Hello";
+import {createStore} from 'redux'
+import {enthusiasm} from './reducers'
+import {StoreState} from './types'
+import {Provider} from 'react-redux'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = createStore<StoreState>(enthusiasm, {
+    languageName: 'TypeScript',
+    enthusiasmLevel: 1
+})
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(
+    <Provider store={store}>
+        <Hello/>
+    </Provider>,
+    document.getElementById('root') as HTMLElement
+)
